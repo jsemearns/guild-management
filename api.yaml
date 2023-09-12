@@ -1,0 +1,71 @@
+# vader-sentiment LoadBalancer Service
+# Enables the pods in a deployment to be accessible from outside the cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-fastapi-service
+spec:
+  selector:
+    app: my-fastapi
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+# my-fastapi Deployment
+# Defines the deployment of the app running in a pod on any worker node
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-fastapi
+  labels:
+    app: my-fastapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-fastapi
+  template:
+    metadata:
+      labels:
+        app: my-fastapi
+    spec:
+      containers:
+        - name: my-fastapi
+          image: my-fastapi-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_USER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-pass
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongo-url
+            - name: DB_USE_AUTH
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongo-use-auth
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: secret-key
+            - name: SALT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: salt-key
+          imagePullPolicy: IfNotPresent

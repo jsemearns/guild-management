@@ -1,0 +1,7 @@
+References:
+- https://beanie-odm.dev/tutorial/inserting-into-the-database/
+- https://stackoverflow.com/questions/8783753/how-to-get-the-object-id-in-pymongo-after-an-insert
+- https://www.canada.ca/en/services/defence/caf/military-identity-system/rank-appointment-insignia.html
+- https://fastapi.tiangolo.com/tutorial/body/
+- https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/#__tabbed_1_2
+- https://docs.pydantic.dev/latest/usage/validators/

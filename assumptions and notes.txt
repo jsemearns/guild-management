@@ -1,0 +1,13 @@
+Assumptions:
+- Once an application is approved, player becomes a member of the guild
+- Only the guild master can assign permissions to ranks
+- Upon joining a guild (through invite/approval), members are not assigned a default rank (which is the lowest rank and have no permissions)
+
+Work remaining:
+- Create unit tests using pytest
+- Add a route dependency that checks if the player has enough rank permissions to proceed with the request, if not, raise a Forbidden error (the placeholder code is in api/guild/router.py line 14 and a sample implementation is at line 44)
+- Modify mongo.yaml to use Statefulset instead of Deployment for database persistence
+- Create tests via Postman
+
+Notes:
+- I mistakenly named "Character" as "Player" and I had no time to change it (realized as I was building docs)
